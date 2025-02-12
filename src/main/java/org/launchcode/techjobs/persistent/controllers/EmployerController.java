@@ -40,8 +40,9 @@ public class EmployerController {
             return "employers/add";
         }
         employerRepository.save(newEmployer);
-
-        return "redirect:/employers";
+        model.addAttribute("title", "Employers");
+        model.addAttribute("employers",employerRepository.findAll() );
+        return "employers/index";
     }
 
     @GetMapping("view/{employerId}")
