@@ -20,11 +20,17 @@ public class SkillController {
     @Autowired
     private SkillRepository skillRepository;
 
-    @GetMapping
-    public String displayAddSkillForm(Model model){
+    @GetMapping()
+    public String displayAllSkillForm(Model model){
         model.addAttribute("title", "All Skills");
         model.addAttribute("skills", skillRepository.findAll());
         return "skills/index";
+    }
+
+    @GetMapping("add")
+    public String displayAddSkillForm(Model model){
+       model.addAttribute("skill", new Skill());
+        return "skills/add";
     }
 
     @PostMapping("add")
@@ -34,7 +40,7 @@ public class SkillController {
             return "skills/add";
         }
         skillRepository.save(newSkill);
-        return "redirect:skills";
+        return "redirect:/skills";
     }
 
     @GetMapping("view/{skillId}")
